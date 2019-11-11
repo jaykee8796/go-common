@@ -37,6 +37,7 @@ func GetDB(dbname string) *xorm.EngineGroup {
 	mysqlManager.lock.Lock()
 	defer mysqlManager.lock.Unlock()
 
+	fmt.Printf("mysqlManager: %v\n", mysqlManager.groups)
 	if eg, ok := mysqlManager.groups[dbname]; ok {
 		return eg
 	}

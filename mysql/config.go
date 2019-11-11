@@ -104,13 +104,13 @@ func getMysqlConfig(filename string) (config MysqlConfig, err error) {
 	return config, nil
 }
 
-func LoadConfig(filenames ...string) ([]MysqlConfig, error) {
+func LoadConfig(filenames map[string]string) ([]MysqlConfig, error) {
 	if len(filenames) == 0 {
 		return nil, errors.New("You must provider at least a name of db")
 	}
 
 	var result []MysqlConfig
-	for _, dbname := range filenames {
+	for key, dbname := range filenames {
 		config, err := getMysqlConfig(dbname)
 		if err != nil {
 			return nil, err
@@ -120,7 +120,7 @@ func LoadConfig(filenames ...string) ([]MysqlConfig, error) {
 			return nil, fmt.Errorf(fmt.Sprintf("Current database: %v is sharding database, please use LoadShardingConfig.", dbname))
 		}
 
-		if err = registerDatabase(dbname, config); err != nil {
+		if err = registerDatabase(key, config); err != nil {
 			return nil, err
 		}
 		result = append(result, config)
