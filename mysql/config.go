@@ -3,7 +3,7 @@ package mysql
 import (
 	"errors"
 	"fmt"
-	"gitee.taojiji.com/micro/infrastructure/ioutil"
+	"github.com/jaykee8796/go-common/ioutil"
 	"sync"
 	"time"
 
